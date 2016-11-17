@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "0.0.1.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -51,7 +51,7 @@ ext {
     gitUrl = 'https://github.com/kngfrhzs/panter-dialog.git'
 
     libraryDescription = 'Panter Dialog is an stylish android library that helps users add cool features like adding header and header logos'
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.1.1'
 
     developerId = 'kngfrhzs'
     developerName = 'Muhammed Emin Ayar'
@@ -119,13 +119,7 @@ if (project.hasProperty("android")) { // Android libraries
     }
 }
 
-/*task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}*/
-
 artifacts {
-    //archives javadocJar
     archives sourcesJar
 }
 

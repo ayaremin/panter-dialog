@@ -2,6 +2,7 @@
 <resources>
     <dimen name="up_down_margin">30dp</dimen>
     <dimen name="pattern_height">69dp</dimen>
+    <dimen name="input_min_height">175dp</dimen>
     <dimen name="logo_height">42dp</dimen>
     <dimen name="text_padding">16dp</dimen>
     <dimen name="button_padding">18dp</dimen>

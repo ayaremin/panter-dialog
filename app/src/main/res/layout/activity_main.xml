@@ -12,27 +12,33 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <Button
+        android:id="@+id/header_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="With Header and Logo"
-        android:id="@+id/header_logo"/>
+        android:text="With Header and Logo"/>
 
     <Button
+        android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="With Header and Title"
-        android:id="@+id/header_title"/>
+        android:text="With Header and Title"/>
 
     <Button
+        android:id="@+id/only_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Only Header"
-        android:id="@+id/only_header"/>
+        android:text="Only Header"/>
 
     <Button
+        android:id="@+id/one_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Only One Button"
-        android:id="@+id/one_button"/>
+        android:text="Only One Button"/>
+
+    <Button
+        android:id="@+id/input_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Input Dialog"/>
 
 </LinearLayout>

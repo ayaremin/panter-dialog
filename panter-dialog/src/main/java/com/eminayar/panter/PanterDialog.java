@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ public class PanterDialog extends Dialog {
 
     private Context context;
     //Views
+    private EditText input;
     private TextView message;
     private TextView positive;
     private TextView negative;
@@ -27,19 +29,24 @@ public class PanterDialog extends Dialog {
     private View divider;
     //Values
     private boolean isCancelable = false;
+    private boolean isInputDialog = false;
     private String positiveText;
     private String negativeText;
     private String messageText;
     private String titleText;
+    private String inputHint;
+    private String emptyErrorText;
     private int titleSize = Constants.DEFAULT_TITLE_SIZE;
     private int titleColor = Constants.DEFAULT_COLOR;
     private int headerPattern = Constants.NO_BACKGROUND;
     private Drawable headerPatternDrawable;
     private int headerLogo = Constants.NO_LOGO;
     private Drawable headerLogoDrawable;
+    private DialogType dialogType = DialogType.STANDART;
     //Listeners
     private View.OnClickListener positiveListener;
     private View.OnClickListener negativeListener;
+    private View.OnClickListener inputListener;
     private View.OnClickListener dismissListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -86,6 +93,8 @@ public class PanterDialog extends Dialog {
         negative = (TextView) findViewById(R.id.negative);
         // This is textview for title
         title = (TextView) findViewById(R.id.header_title);
+        // This is edittext for input
+        input = (EditText) findViewById(R.id.input);
 
         /**
          * If we dont do this configuration dialog's are getting %80 of screen width
@@ -102,10 +111,34 @@ public class PanterDialog extends Dialog {
 
     private void init() {
         setCancelable(isCancelable);
+        setDialogType();
         setHeaderAndLogo();
         setButtonsAndMessage();
     }
 
+    /**
+     * In future because also new types will be added
+     * I am planning to handle all types in one layout so this is why I'm configuring content
+     * area in this method
+     */
+    private void setDialogType() {
+        switch (dialogType) {
+            case STANDART:
+                input.setVisibility(View.GONE);
+                isInputDialog = false;
+                break;
+            case INPUT:
+                message.setVisibility(View.GONE);
+                input.setVisibility(View.VISIBLE);
+                isInputDialog = true;
+                break;
+        }
+    }
+
+    /**
+     * This method checks whether any logo or header background passed to app or not
+     * According them it shows or hide views
+     */
     private void setHeaderAndLogo() {
         boolean showLogo = true;
         boolean showPattern = true;
@@ -143,9 +176,13 @@ public class PanterDialog extends Dialog {
     private void setButtonsAndMessage() {
         boolean showPos = false;
         boolean showNeg = false;
-        if (TextUtils.isEmpty(positiveText) && TextUtils.isEmpty(negativeText)) {
+        if (TextUtils.isEmpty(positiveText) && TextUtils.isEmpty(negativeText) && !isInputDialog) {
             positiveText = context.getString(R.string.dialog_positive);
             positiveListener = dismissListener;
+            showPos = true;
+        }
+        if (TextUtils.isEmpty(positiveText) && TextUtils.isEmpty(negativeText) && isInputDialog) {
+            positiveText = context.getString(R.string.dialog_positive);
             showPos = true;
         }
         if (!TextUtils.isEmpty(negativeText)) {
@@ -159,6 +196,9 @@ public class PanterDialog extends Dialog {
         }
         if (showPos) {
             positive.setText(positiveText);
+            if (isInputDialog) {
+                positiveListener = inputListener;
+            }
             positive.setOnClickListener(positiveListener);
         }
         if (showNeg) {
@@ -166,6 +206,7 @@ public class PanterDialog extends Dialog {
             negative.setOnClickListener(negativeListener);
         }
         message.setText(messageText);
+        input.setHint(inputHint);
     }
 
     /**
@@ -373,5 +414,92 @@ public class PanterDialog extends Dialog {
     public PanterDialog isCancelable(boolean flag) {
         this.isCancelable = flag;
         return this;
+    }
+
+    /**
+     * Set type of this dialog from predefined enum
+     *
+     * @param type
+     * @return
+     */
+    public PanterDialog setDialogType(DialogType type) {
+        this.dialogType = type;
+        return this;
+    }
+
+    /**
+     * Set hint and text callback as parameter
+     *
+     * @param hint
+     * @param listener
+     * @return
+     */
+    public PanterDialog input(String hint, OnTextInputConfirmListener listener) {
+        this.inputHint = hint;
+        this.inputListener = new TextInputListener(listener);
+        return this;
+    }
+
+    /**
+     * Set text callback as parameter
+     *
+     * @param listener
+     * @return
+     */
+    public PanterDialog input(OnTextInputConfirmListener listener) {
+        this.inputListener = new TextInputListener(listener);
+        return this;
+    }
+
+    /**
+     * Set hint, empty error string and callback as parameter
+     *
+     * @param emptyErrorText
+     * @param hint
+     * @param listener
+     * @return
+     */
+    public PanterDialog input(String hint, String emptyErrorText, OnTextInputConfirmListener
+            listener) {
+        this.emptyErrorText = emptyErrorText;
+        this.inputHint = hint;
+        this.inputListener = new TextInputListener(listener);
+        return this;
+    }
+
+    /**
+     * This click listener is build up to get text on input dialogs
+     * When user enter their input and clicked on positive buttons it will automatically
+     * pass writtent text to users
+     */
+    private class TextInputListener implements View.OnClickListener {
+
+        private OnTextInputConfirmListener wrapped;
+
+        private TextInputListener(OnTextInputConfirmListener wrapped) {
+            this.wrapped = wrapped;
+        }
+
+        @Override
+        public void onClick(View v) {
+            String text = input.getText().toString();
+            if (isInputDialog && TextUtils.isEmpty(text)) {
+                if (TextUtils.isEmpty(emptyErrorText)) {
+                    emptyErrorText = context.getString(R.string.error_empty_input);
+                }
+                input.setError(emptyErrorText);
+                return;
+            }
+
+            if (wrapped != null) {
+                wrapped.onTextInputConfirmed(text);
+            }
+
+            dismiss();
+        }
+    }
+
+    public interface OnTextInputConfirmListener {
+        void onTextInputConfirmed(String input);
     }
 }

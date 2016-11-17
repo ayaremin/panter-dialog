@@ -3,6 +3,7 @@
     <dimen name="up_down_margin">30dp</dimen>
     <dimen name="pattern_height">69dp</dimen>
     <dimen name="logo_height">42dp</dimen>
+    <dimen name="input_min_height">150dp</dimen>
     <dimen name="text_padding">16dp</dimen>
     <dimen name="button_padding">10dp</dimen>
     <dimen name="divider_stroke">0.5dp</dimen>
