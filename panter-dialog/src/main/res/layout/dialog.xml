@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="@dimen/up_down_margin"
+              android:layout_marginBottom="@dimen/up_down_margin"
+              android:gravity="center"
+              android:weightSum="1"
+    >
+
+    <LinearLayout
+        android:id="@+id/dialog_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_weight="0.93"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/header_pattern"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pattern_height"
+                android:scaleType="fitXY"
+                />
+
+            <ImageView
+                android:id="@+id/pattern_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/logo_height"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:id="@+id/header_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_fake_margin"
+            android:background="#ffffff">
+
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:fillViewport="true"
+                android:layout_alignParentTop="true"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:padding="@dimen/text_padding"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/message_text_size"/>
+
+            </ScrollView>
+
+            <View
+                android:id="@+id/vertical_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_stroke"
+                android:layout_below="@+id/scroll_view"
+                android:background="@color/divider_color"/>
+
+            <LinearLayout
+                android:id="@+id/button_container"
+                android:layout_below="@+id/vertical_divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/negative"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/button_padding"
+                    android:paddingTop="@dimen/button_padding"
+                    android:textColor="@color/negative_button_color"
+                    android:textSize="@dimen/message_text_size"/>
+
+                <View
+                    android:id="@+id/button_divider"
+                    android:layout_width="@dimen/divider_stroke"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider_color"/>
+
+                <TextView
+                    android:id="@+id/positive"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/button_padding"
+                    android:paddingTop="@dimen/button_padding"
+                    android:textColor="@color/positive_button_color"
+                    android:textSize="@dimen/message_text_size"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

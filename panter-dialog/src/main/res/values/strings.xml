@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Panter</string>
+    <string name="dialog_positive">OK</string>
+    <string name="dialog_negative">NO</string>
+</resources>

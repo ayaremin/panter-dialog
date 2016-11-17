@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text_color">#804a4a4a</color>
+    <color name="negative_button_color">#80000000</color>
+    <color name="positive_button_color">#009688</color>
+    <color name="divider_color">#33000000</color>
+    <color name="title_color">#ffffff</color>
+</resources>
