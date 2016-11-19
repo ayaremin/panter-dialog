@@ -1,5 +1,7 @@
 # PanterDialog
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Panter%20Dialog-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4678)
+
 ![Logo](http://i.imgur.com/FMlRH4i.png)
 
 ![Screenshots](http://i.imgur.com/EmpgPMB.png)
