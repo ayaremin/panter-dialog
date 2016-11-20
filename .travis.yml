@@ -13,6 +13,9 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
 
+before_install:
+  - chmod +x gradlew
+  
 env:
   global:
     - ADB_INSTALL_TIMEOUT=8
