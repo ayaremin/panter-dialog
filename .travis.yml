@@ -17,8 +17,3 @@ env:
   global:
     - ADB_INSTALL_TIMEOUT=8
 
-before_install:
-  - chmod +x gradlew
-
-script:
-  - ./gradlew assembleRelease
