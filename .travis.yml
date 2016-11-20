@@ -1,11 +1,24 @@
 language: android
-sudo: required
+sudo: required 
+jdk: oraclejdk8
+
 android:
   components:
+    - platform-tools
+    - tools
     - build-tools-25.0.0
     - android-25
+    - extra-android-support
     - extra-google-google_play_services
-    - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-19
+    - extra-google-m2repository
 
+env:
+  global:
+    - ADB_INSTALL_TIMEOUT=8
+
+before_install:
+  - chmod +x gradlew
+
+script:
+  - ./gradlew assembleRelease
