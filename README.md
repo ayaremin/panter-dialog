@@ -10,7 +10,7 @@
 ## Installation 
 Add this into your build.gradle dependencies section.
 ```
-compile 'com.eminayar.panter:panter-dialog:0.0.1.1'
+compile 'com.eminayar.panterdialog:panter-dialog:0.0.1.1'
 ```
 
 ## Sample Usages
