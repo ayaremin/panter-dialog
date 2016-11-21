@@ -1,5 +1,6 @@
 # PanterDialog
 
+[![Build Status](https://travis-ci.org/kngfrhzs/panter-dialog.svg?branch=master)](https://travis-ci.org/kngfrhzs/panter-dialog)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Panter%20Dialog-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4678) 
 [![Join the chat at https://gitter.im/panterdialog/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/panterdialog/Lobby)
 
