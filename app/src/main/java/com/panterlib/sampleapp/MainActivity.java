@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.eminayar.panter.enums.Animation;
 import com.eminayar.panter.DialogType;
 import com.eminayar.panter.PanterDialog;
 import com.eminayar.panter.interfaces.OnSingleCallbackConfirmListener;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setPositive("I GOT IT")
                         .setNegative("DISMISS")
                         .setMessage(R.string.lorem_ipsum)
+                        .withAnimation(Animation.POP)
                         .isCancelable(false)
                         .show();
                 break;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new PanterDialog(this)
                         .setHeaderBackground(R.drawable.pattern_bg_orange)
                         .setHeaderLogo(R.drawable.sample_logo)
+                        .withAnimation(Animation.SIDE)
                         .setDialogType(DialogType.INPUT)
                         .isCancelable(false)
                         .input("THIS IS HINT FOR INPUT AREA YOU CAN WRITE HERE ANY LONGER TEXTS",
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setHeaderBackground(R.drawable.pattern_bg_blue)
                         .setHeaderLogo(R.drawable.sample_logo)
                         .setDialogType(DialogType.SINGLECHOICE)
+                        .withAnimation(Animation.SLIDE)
                         .isCancelable(false)
                         .items(R.array.sample_array, new OnSingleCallbackConfirmListener() {
                             @Override

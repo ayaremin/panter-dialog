@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.eminayar.panter.adapters.SingleChoiceAdapter;
+import com.eminayar.panter.enums.Animation;
 import com.eminayar.panter.interfaces.OnSingleCallbackConfirmListener;
 import com.eminayar.panter.interfaces.OnTextInputConfirmListener;
 
@@ -53,6 +54,7 @@ public class PanterDialog extends Dialog {
     private int headerLogo = Constants.NO_LOGO;
     private Drawable headerLogoDrawable;
     private DialogType dialogType = DialogType.STANDART;
+    private Animation animationType = Animation.DEFAULT;
     //Listeners
     private View.OnClickListener positiveListener;
     private View.OnClickListener negativeListener;
@@ -88,6 +90,8 @@ public class PanterDialog extends Dialog {
         super.onCreate(savedInstanceState);
         // We want background transparent because users can use radius images on headers
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //Set animation before layouts created
+        setAnimation();
         setContentView(R.layout.dialog);
 
         // This is RelativeLayout for header
@@ -119,9 +123,24 @@ public class PanterDialog extends Dialog {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
         // Set messages and listeners for messages and buttons
         init();
+    }
+
+    private void setAnimation() {
+        switch (animationType) {
+            case DEFAULT:
+                break;
+            case SLIDE:
+                getWindow().getAttributes().windowAnimations = R.style.SlideAnimation;
+                break;
+            case POP:
+                getWindow().getAttributes().windowAnimations = R.style.PopAnimation;
+                break;
+            case SIDE:
+                getWindow().getAttributes().windowAnimations = R.style.SideAnimation;
+                break;
+        }
     }
 
     private void init() {
@@ -545,6 +564,17 @@ public class PanterDialog extends Dialog {
         this.emptyErrorText = emptyErrorText;
         this.inputHint = hint;
         this.inputListener = new TextInputListener(listener);
+        return this;
+    }
+
+    /**
+     * Set Animation type as enum
+     *
+     * @param animation
+     * @return
+     */
+    public PanterDialog withAnimation(Animation animation) {
+        this.animationType = animation;
         return this;
     }
 

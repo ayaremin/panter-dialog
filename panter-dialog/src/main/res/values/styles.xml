@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define Slide Animation for Dialog -->
+    <style name="SlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
+    </style>
+    <!-- Define Slide Animation for Dialog -->
+    <style name="PopAnimation">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+    <!-- Define Side Slide Animation for Dialog -->
+    <style name="SideAnimation">
+        <item name="android:windowEnterAnimation">@anim/side_in</item>
+        <item name="android:windowExitAnimation">@anim/side_out</item>
+    </style>
+</resources>
