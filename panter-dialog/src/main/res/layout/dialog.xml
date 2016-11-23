@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_marginBottom="@dimen/up_down_margin"
@@ -54,12 +55,12 @@
             android:layout_marginTop="@dimen/content_fake_margin"
             android:background="#ffffff">
 
-            <ScrollView
+            <com.eminayar.panter.views.MaxHeightScrollView
                 android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:fillViewport="true">
+                app:maxHeight="@dimen/scrollview_max_height">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -88,10 +89,17 @@
                         android:textSize="@dimen/message_text_size"
                         />
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbarStyle="outsideOverlay"
+                        android:scrollbars="vertical"/>
+
                 </RelativeLayout>
 
 
-            </ScrollView>
+            </com.eminayar.panter.views.MaxHeightScrollView>
 
             <View
                 android:id="@+id/vertical_divider"

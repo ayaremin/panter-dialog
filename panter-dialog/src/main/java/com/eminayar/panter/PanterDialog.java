@@ -5,6 +5,9 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ArrayRes;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -13,6 +16,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.eminayar.panter.adapters.SingleChoiceAdapter;
+import com.eminayar.panter.interfaces.OnSingleCallbackConfirmListener;
+import com.eminayar.panter.interfaces.OnTextInputConfirmListener;
+
+import java.util.ArrayList;
 
 public class PanterDialog extends Dialog {
 
@@ -26,6 +35,7 @@ public class PanterDialog extends Dialog {
     private ImageView headerImageView;
     private ImageView headerLogoImageView;
     private RelativeLayout header;
+    private RecyclerView recyclerView;
     private View divider;
     //Values
     private boolean isCancelable = false;
@@ -47,12 +57,15 @@ public class PanterDialog extends Dialog {
     private View.OnClickListener positiveListener;
     private View.OnClickListener negativeListener;
     private View.OnClickListener inputListener;
+    private View.OnClickListener choiceListener;
     private View.OnClickListener dismissListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             dismiss();
         }
     };
+    //Adapters
+    private SingleChoiceAdapter singleChoiceAdapter;
 
 
     public PanterDialog(Context context) {
@@ -95,6 +108,8 @@ public class PanterDialog extends Dialog {
         title = (TextView) findViewById(R.id.header_title);
         // This is edittext for input
         input = (EditText) findViewById(R.id.input);
+        // This is recyclerView for list dialogs
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         /**
          * If we dont do this configuration dialog's are getting %80 of screen width
@@ -125,12 +140,20 @@ public class PanterDialog extends Dialog {
         switch (dialogType) {
             case STANDART:
                 input.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
                 isInputDialog = false;
                 break;
             case INPUT:
                 message.setVisibility(View.GONE);
                 input.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
                 isInputDialog = true;
+                break;
+            case SINGLECHOICE:
+                message.setVisibility(View.GONE);
+                input.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                isInputDialog = false;
                 break;
         }
     }
@@ -181,8 +204,14 @@ public class PanterDialog extends Dialog {
             positiveListener = dismissListener;
             showPos = true;
         }
-        if (TextUtils.isEmpty(positiveText) && TextUtils.isEmpty(negativeText) && isInputDialog) {
+        if (TextUtils.isEmpty(positiveText) && TextUtils.isEmpty(negativeText) && dialogType ==
+                DialogType.INPUT) {
             positiveText = context.getString(R.string.dialog_positive);
+            showPos = true;
+        }
+        if (TextUtils.isEmpty(positiveText) && TextUtils.isEmpty(negativeText) && dialogType ==
+                DialogType.SINGLECHOICE) {
+            positiveText = context.getString(R.string.dialog_positive_single_selection_default);
             showPos = true;
         }
         if (!TextUtils.isEmpty(negativeText)) {
@@ -195,16 +224,27 @@ public class PanterDialog extends Dialog {
             divider.setVisibility(View.GONE);
         }
         if (showPos) {
-            positive.setText(positiveText);
-            if (isInputDialog) {
-                positiveListener = inputListener;
+            switch (dialogType) {
+                case INPUT:
+                    positiveListener = inputListener;
+                    break;
+                case SINGLECHOICE:
+                    positiveListener = choiceListener;
+                    break;
+                default:
+                    break;
             }
+            positive.setText(positiveText);
             positive.setOnClickListener(positiveListener);
         }
         if (showNeg) {
             negative.setText(negativeText);
             negative.setOnClickListener(negativeListener);
         }
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(manager);
+        if (singleChoiceAdapter != null)
+            recyclerView.setAdapter(singleChoiceAdapter);
         message.setText(messageText);
         input.setHint(inputHint);
     }
@@ -452,6 +492,47 @@ public class PanterDialog extends Dialog {
     }
 
     /**
+     * Set single choice dialog with resources array
+     *
+     * @param array
+     * @param listener
+     * @return
+     */
+    public PanterDialog items(@ArrayRes int array, OnSingleCallbackConfirmListener listener) {
+        String[] mArray = context.getResources().getStringArray(array);
+        singleChoiceAdapter = new SingleChoiceAdapter(mArray);
+        this.choiceListener = new SingleListCallback(listener);
+        return this;
+    }
+
+    /**
+     * Set single choice dialog with given string array
+     *
+     * @param array
+     * @param listener
+     * @return
+     */
+    public PanterDialog items(String[] array, OnSingleCallbackConfirmListener listener) {
+        singleChoiceAdapter = new SingleChoiceAdapter(array);
+        this.choiceListener = new SingleListCallback(listener);
+        return this;
+    }
+
+    /**
+     * Set single choice dialog with given string arraylist
+     *
+     * @param array
+     * @param listener
+     * @return
+     */
+    public PanterDialog items(ArrayList<String> array, OnSingleCallbackConfirmListener listener) {
+        String[] mArray = array.toArray(new String[0]);
+        singleChoiceAdapter = new SingleChoiceAdapter(mArray);
+        this.choiceListener = new SingleListCallback(listener);
+        return this;
+    }
+
+    /**
      * Set hint, empty error string and callback as parameter
      *
      * @param emptyErrorText
@@ -499,7 +580,33 @@ public class PanterDialog extends Dialog {
         }
     }
 
-    public interface OnTextInputConfirmListener {
-        void onTextInputConfirmed(String input);
+    /**
+     * This click listener is build up to get single choice from user
+     * When userselect a radio button and clicked on positive buttons it will automatically
+     * pass dialog object, text and position to users
+     * if there is no selection then it will dismiss dialog
+     */
+    private class SingleListCallback implements View.OnClickListener {
+
+        private OnSingleCallbackConfirmListener wrapped;
+
+        private SingleListCallback(OnSingleCallbackConfirmListener wrapped) {
+            this.wrapped = wrapped;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (wrapped != null) {
+                if (singleChoiceAdapter.lastCheckedPosition <= -1) {
+                    dismiss();
+                    return;
+                }
+                wrapped.onSingleCallbackConfirmed(PanterDialog.this, singleChoiceAdapter
+                        .lastCheckedPosition, singleChoiceAdapter.list[singleChoiceAdapter.lastCheckedPosition]);
+            }
+
+            dismiss();
+        }
     }
 }

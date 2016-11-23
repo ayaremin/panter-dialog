@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.eminayar.panter.DialogType;
 import com.eminayar.panter.PanterDialog;
+import com.eminayar.panter.interfaces.OnSingleCallbackConfirmListener;
+import com.eminayar.panter.interfaces.OnTextInputConfirmListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ((Button) (findViewById(R.id.only_header))).setOnClickListener(this);
         ((Button) (findViewById(R.id.one_button))).setOnClickListener(this);
         ((Button) (findViewById(R.id.input_button))).setOnClickListener(this);
+        ((Button) (findViewById(R.id.single_choice))).setOnClickListener(this);
     }
 
     @Override
@@ -70,13 +73,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .isCancelable(false)
                         .input("THIS IS HINT FOR INPUT AREA YOU CAN WRITE HERE ANY LONGER TEXTS",
                                 "ERROR MESSAGE IF USER PUT EMPTY INPUT", new
-                                        PanterDialog
-                                                .OnTextInputConfirmListener() {
+                                        OnTextInputConfirmListener() {
                                             @Override
                                             public void onTextInputConfirmed(String text) {
                                                 Toast.makeText(MainActivity.this, text, Toast.LENGTH_LONG).show();
                                             }
                                         })
+                        .show();
+                break;
+            case R.id.single_choice:
+                new PanterDialog(this)
+                        .setHeaderBackground(R.drawable.pattern_bg_blue)
+                        .setHeaderLogo(R.drawable.sample_logo)
+                        .setDialogType(DialogType.SINGLECHOICE)
+                        .isCancelable(false)
+                        .items(R.array.sample_array, new OnSingleCallbackConfirmListener() {
+                            @Override
+                            public void onSingleCallbackConfirmed(PanterDialog dialog, int pos, String text) {
+                                Toast.makeText(MainActivity.this, "position : " + String.valueOf(pos) +
+                                                " value = " + text,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        })
                         .show();
                 break;
         }
