@@ -594,9 +594,10 @@ public class PanterDialog extends Dialog {
         @Override
         public void onClick(View v) {
             String text = input.getText().toString();
-            if (isInputDialog && TextUtils.isEmpty(text)) {
+            if (dialogType == DialogType.INPUT && TextUtils.isEmpty(text)) {
                 if (TextUtils.isEmpty(emptyErrorText)) {
-                    emptyErrorText = context.getString(R.string.error_empty_input);
+                    dismiss();
+                    return;
                 }
                 input.setError(emptyErrorText);
                 return;

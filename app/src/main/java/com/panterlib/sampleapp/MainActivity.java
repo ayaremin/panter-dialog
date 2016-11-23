@@ -74,14 +74,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .withAnimation(Animation.SIDE)
                         .setDialogType(DialogType.INPUT)
                         .isCancelable(false)
-                        .input("THIS IS HINT FOR INPUT AREA YOU CAN WRITE HERE ANY LONGER TEXTS",
-                                "ERROR MESSAGE IF USER PUT EMPTY INPUT", new
-                                        OnTextInputConfirmListener() {
-                                            @Override
-                                            public void onTextInputConfirmed(String text) {
-                                                Toast.makeText(MainActivity.this, text, Toast.LENGTH_LONG).show();
-                                            }
-                                        })
+                        .input("THIS IS HINT FOR INPUT AREA YOU CAN WRITE HERE ANY LONGER TEXTS", new
+                                OnTextInputConfirmListener() {
+                                    @Override
+                                    public void onTextInputConfirmed(String text) {
+                                        Toast.makeText(MainActivity.this, text, Toast.LENGTH_LONG).show();
+                                    }
+                                })
                         .show();
                 break;
             case R.id.single_choice:
