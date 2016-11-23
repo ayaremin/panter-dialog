@@ -22,6 +22,7 @@
         android:textColor="@color/input_text_color"
         android:textSize="@dimen/single_choice_text_size"
         android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/radio_button"
         android:layout_centerVertical="true"
         />
 
