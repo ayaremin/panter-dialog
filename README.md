@@ -11,7 +11,7 @@
 ## Installation 
 Add this into your build.gradle dependencies section.
 ```
-compile 'com.eminayar.panterdialog:panter-dialog:0.0.2.0'
+compile 'com.eminayar.panterdialog:panter-dialog:0.0.2.1'
 ```
 
 ## Sample Usages
@@ -100,6 +100,21 @@ new PanterDialog(this)
                                     
 
 ````
+#### Animation
+
+There are 3 type of pre-defined animation you can use : `POP`, `SLIDE` and `SIDE`
+
+##### Pop Animation
+
+You can add this animation to your dialog by using `.withAnimation(Animation.POP)`
+
+##### Side Animation
+
+This animation let dialog enter screen from left and exit from right. You can add this animation to your dialog by using `.withAnimation(Animation.SIDE)`
+
+##### Slide Animation
+
+This animation let dialog enter screen from bottom and exit from bottom. You can add this animation to your dialog by using `.withAnimation(Animation.SLIDE)`
 
 ## Contribution
 
