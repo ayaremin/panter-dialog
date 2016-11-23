@@ -15,7 +15,7 @@
         android:id="@+id/header_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="With Header and Logo"/>
+        android:text="With Header and Logo / Pop Animation"/>
 
     <Button
         android:id="@+id/header_title"
@@ -39,12 +39,12 @@
         android:id="@+id/input_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Input Dialog"/>
+        android:text="Input Dialog / Side Animation"/>
 
     <Button
         android:id="@+id/single_choice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Single Choice Dialog"/>
+        android:text="Single Choice Dialog / Slide Up Animation"/>
 
 </LinearLayout>
