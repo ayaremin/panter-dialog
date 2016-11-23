@@ -6,19 +6,19 @@
 
 ![Logo](http://i.imgur.com/FMlRH4i.png)
 
-![Screenshots](http://i.imgur.com/EmpgPMB.png)
+![Screenshots](http://i.imgur.com/Pm6aAuW.png)
 
 ## Installation 
 Add this into your build.gradle dependencies section.
 ```
-compile 'com.eminayar.panterdialog:panter-dialog:0.0.1.1'
+compile 'com.eminayar.panterdialog:panter-dialog:0.0.2.0'
 ```
 
 ## Sample Usages
 
 You can check sample application to see how to create PanterDialogs with simply [sample module] (https://github.com/kngfrhzs/panter-dialog/tree/master/app).
 
-There are 2 types of dialog for now. Default dialog type is `DialogType.Standart`. So if you don't pass this value it will create a standart text dialog. Otherwise you can create `Input Dialog` by just calling `setDialogType(DialogType.INPUT)`.
+There are 3 types of dialog for now. Default dialog type is `DialogType.Standart`. So if you don't pass this value it will create a standart text dialog. Otherwise you can create `Input Dialog` by just calling `setDialogType(DialogType.INPUT)` or `Single Choice List Dialog` by just calling `setDialogType(DialogType.SINGLECHOICE)`.
 
 #### Dialog with Header and Logo
 ````java
@@ -75,6 +75,28 @@ new PanterDialog(this)
                             }
                         })
         .show();
+                                    
+
+````
+
+#### Single Choice List Dialog
+
+While passing your values to dialog you can pass them as `@ArrayRes , String[] or ArrayList<String>`.There are 3 built-in method for them
+````java
+new PanterDialog(this)
+          .setHeaderBackground(R.drawable.pattern_bg_blue)
+          .setHeaderLogo(R.drawable.sample_logo)
+          .setDialogType(DialogType.SINGLECHOICE)
+          .isCancelable(false)
+          .items(R.array.sample_array, new OnSingleCallbackConfirmListener() {
+              @Override
+              public void onSingleCallbackConfirmed(PanterDialog dialog, int pos, String text) {
+                  Toast.makeText(MainActivity.this, "position : " + String.valueOf(pos) +
+                                  " value = " + text,
+                          Toast.LENGTH_LONG).show();
+              }
+          })
+          .show();
                                     
 
 ````
