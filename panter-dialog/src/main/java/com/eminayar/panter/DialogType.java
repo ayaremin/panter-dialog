@@ -5,5 +5,5 @@ package com.eminayar.panter;
  */
 
 public enum DialogType {
-    STANDART, INPUT
+    STANDART, INPUT, SINGLECHOICE
 }

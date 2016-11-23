@@ -2,5 +2,6 @@
     <string name="app_name">Panter</string>
     <string name="dialog_positive">OK</string>
     <string name="dialog_negative">NO</string>
+    <string name="dialog_positive_single_selection_default">CHOOSE</string>
     <string name="error_empty_input">You cant leave input field empty</string>
 </resources>
