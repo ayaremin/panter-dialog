@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.eminayar.panter.enums.Animation;
 import com.eminayar.panter.DialogType;
 import com.eminayar.panter.PanterDialog;
+import com.eminayar.panter.interfaces.OnDialogClickListener;
 import com.eminayar.panter.interfaces.OnSingleCallbackConfirmListener;
 import com.eminayar.panter.interfaces.OnTextInputConfirmListener;
 
@@ -33,7 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new PanterDialog(this)
                         .setHeaderBackground(R.drawable.pattern_bg_orange)
                         .setHeaderLogo(R.drawable.sample_logo)
-                        .setPositive("I GOT IT")
+                        .setPositive("I GOT IT", new OnDialogClickListener() {
+                            @Override
+                            public void onDialogButtonClicked(PanterDialog dialog) {
+                                Toast.makeText(getApplicationContext(),"Custom click event",Toast.LENGTH_LONG).show();
+                            }
+                        })
                         .setNegative("DISMISS")
                         .setMessage(R.string.lorem_ipsum)
                         .withAnimation(Animation.POP)

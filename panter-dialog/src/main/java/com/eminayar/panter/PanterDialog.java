@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.eminayar.panter.adapters.SingleChoiceAdapter;
 import com.eminayar.panter.enums.Animation;
+import com.eminayar.panter.interfaces.OnDialogClickListener;
 import com.eminayar.panter.interfaces.OnSingleCallbackConfirmListener;
 import com.eminayar.panter.interfaces.OnTextInputConfirmListener;
 
@@ -313,9 +314,9 @@ public class PanterDialog extends Dialog {
      * @param text
      * @return
      */
-    public PanterDialog setPositive(String text, View.OnClickListener listener) {
+    public PanterDialog setPositive(String text, OnDialogClickListener listener) {
         positiveText = text;
-        positiveListener = listener;
+        positiveListener = new ButtonClickCallback(listener);
         return this;
     }
 
@@ -340,9 +341,9 @@ public class PanterDialog extends Dialog {
      * @param text
      * @return
      */
-    public PanterDialog setNegative(String text, View.OnClickListener listener) {
+    public PanterDialog setNegative(String text, OnDialogClickListener listener) {
         negativeText = text;
-        negativeListener = listener;
+        negativeListener = new ButtonClickCallback(listener);
         return this;
     }
 
@@ -636,7 +637,28 @@ public class PanterDialog extends Dialog {
                 wrapped.onSingleCallbackConfirmed(PanterDialog.this, singleChoiceAdapter
                         .lastCheckedPosition, singleChoiceAdapter.list[singleChoiceAdapter.lastCheckedPosition]);
             }
+            dismiss();
+        }
+    }
 
+    /**
+     * This click listener is build up to used as normal click listeners
+     * It will automatically dismiss dialog after clicked
+     */
+    private class ButtonClickCallback implements View.OnClickListener {
+
+        private OnDialogClickListener wrapped;
+
+        private ButtonClickCallback(OnDialogClickListener wrapped) {
+            this.wrapped = wrapped;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (wrapped != null) {
+                wrapped.onDialogButtonClicked(PanterDialog.this);
+            }
             dismiss();
         }
     }
