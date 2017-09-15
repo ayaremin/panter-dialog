@@ -1,14 +1,14 @@
 # PanterDialog
 
 [![Build Status](https://travis-ci.org/kngfrhzs/panter-dialog.svg?branch=master)](https://travis-ci.org/kngfrhzs/panter-dialog)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Panter%20Dialog-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4678) 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Panter%20Dialog-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4678)
 [![Join the chat at https://gitter.im/panterdialog/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/panterdialog/Lobby)
 
 ![Logo](http://i.imgur.com/FMlRH4i.png)
 
 ![Screenshots](http://i.imgur.com/Pm6aAuW.png)
 
-## Installation 
+## Installation
 Add this into your build.gradle dependencies section.
 ```
 compile 'com.eminayar.panterdialog:panter-dialog:0.0.2.1'
@@ -67,15 +67,14 @@ new PanterDialog(this)
         .isCancelable(false)
         .input("THIS IS HINT FOR INPUT AREA YOU CAN WRITE HERE ANY LONGER TEXTS",
                 "ERROR MESSAGE IF USER PUT EMPTY INPUT", new
-                        PanterDialog
-                                .OnTextInputConfirmListener() {
+                            OnTextInputConfirmListener() {
                             @Override
                             public void onTextInputConfirmed(String text) {
                                 Toast.makeText(MainActivity.this, text, Toast.LENGTH_LONG).show();
                             }
                         })
         .show();
-                                    
+
 
 ````
 
@@ -97,7 +96,7 @@ new PanterDialog(this)
               }
           })
           .show();
-                                    
+
 
 ````
 #### Animation
