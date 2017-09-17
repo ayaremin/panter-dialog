@@ -4,7 +4,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Panter%20Dialog-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4678) 
 [![Join the chat at https://gitter.im/panterdialog/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/panterdialog/Lobby)
 
-![Logo](https://imgur.com/a/GL1AM)
+![Logo](http://i.imgur.com/FMlRH4i.png)
 
 ![Screenshots](http://i.imgur.com/Pm6aAuW.png)
 
